@@ -80,7 +80,6 @@ exports.deleteFullSet = async (req, res) => {
 }
 
 exports.addUserSet = async (req, res) => {
-  await db.insertUniversal(req.body.fc, 'FlashCardSet')
   try {
     await db.insertUniversal(req.body.fc, 'FlashCardSet');
     res.redirect(`/user/${req.params.id}`);
