@@ -30,5 +30,7 @@ Router.route('/user/:id')
   .post(helpers.addUserSet)
   .delete(helpers.deleteFullSet);
 
+Router.route('/signup')
+  .get(helpers.getSignUp);
 
 module.exports = Router;

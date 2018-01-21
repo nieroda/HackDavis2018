@@ -1,0 +1,49 @@
+<%- include("./partials/header.ejs"); %>
+<style>
+
+  #signup_wrapper {
+    width: 50vw;
+    padding-top: 15vh;
+  }
+
+  .jumbotron {
+    height: inherit;
+    width: inherit;
+    margin:0px;
+    padding: 16px;
+
+  }
+
+  .display-3 {
+    text-align: center;
+  }
+
+</style>
+
+<div class="container" id="signup_wrapper">
+<div class="jumbotron">
+  <h1 class="display-3">Sign up and Start Learning Faster !</h1>
+  <form action='/signup' method='POST'>
+    <div class="form-group">
+      <label for=examplefName>First Name</label>
+      <input type="fname" name='auth[fname]' class="form-control" placeholder="First Name">
+    </div>
+    <div class="form-group">
+      <label for=examplefName>Last Name</label>
+      <input type="lname" nmae='auth[lname]' class="form-control" placeholder="Last Name">
+    </div>
+  <div class="form-group">
+    <label for="exampleInputEmail">Username</label>
+    <input type="text" name='auth[username]' class="form-control" placeholder="Enter username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name='auth[password]'class="form-control" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+
+<%- include("./partials/footer.ejs"); %>

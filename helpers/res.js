@@ -96,3 +96,8 @@ exports.addUserSet = async (req, res) => {
     res.send(e);
   }
 }
+
+exports.getSignUp = (req, res) => {
+  console.log(req);
+  res.render('signUp');
+}
