@@ -12,7 +12,9 @@ Router.route('/*')
 Router.route('/index')
     .get(helpers.getAllUsers)
 
-Router.route('/login').get(helpers.getLogin)
+Router.route('/login')
+  .get(helpers.getLogin)
+  .post(helpers.postLogin)
 
 Router.route('/')
   .get(helpers.getAllUsers);

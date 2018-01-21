@@ -102,3 +102,12 @@ exports.deleteSet2 = ({ FlashCardSetID }) => {
     });
   });
 }
+
+exports.authUser = ({ username, password }) => {
+  return new Promise((resolve, reject) => {
+    let myquery = `select * from Users where Users.username=${connection.escape(username)} and Users.password=${connection.escape(password)};`
+    connection.query(myquery, (err,result) => {
+      err ? reject(err): resolve(result);
+    })
+  })
+}

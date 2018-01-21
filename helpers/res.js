@@ -12,9 +12,38 @@ exports.getAllUsers = (req, res) => {
 }
 
 exports.getLogin = (req, res) => {
-  req.session.username = 'foo';
+  //req.session.username = 'foo';
   console.log(req.session);
   res.render('login');
+}
+
+exports.postLogin = async (req, res) => {
+  console.log(req.body.auth);
+  //req.session.userInfo = req.body.auth;
+
+  try {
+    var userInfo = await db.authUser(req.body.auth);
+    console.log(userInfo)
+    if (userInfo.length === 0) {
+      console.log("invalid");
+      res.render('login');
+    }
+    else {
+      console.log(userInfo);
+      const { userID, username } = userInfo[0];
+      console.log(userID);
+      console.log(username);
+      const sessobj = { userID, username };
+      console.log(sessobj);
+      req.session.userInfo = sessobj;
+      res.redirect(`/user/${userID}`)
+    }
+
+  }
+  catch(e) {
+    console.log("in catch");
+    console.log(e);
+  }
 }
 
 exports.getSet = (req, res) => {
