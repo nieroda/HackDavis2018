@@ -6,15 +6,14 @@ exports.getAllUsers = (req, res) => {
     //.then(result => res.render('index', { result }))
     .then(result => {
       console.log(result);
-      res.render('index', { result });
+      res.render('index', { result, auth: req.session.userInfo });
     })
     .catch(err => res.send(err));
 }
 
 exports.getLogin = (req, res) => {
-  //req.session.username = 'foo';
   console.log(req.session);
-  res.render('login');
+  res.render('login', { auth: req.session.userInfo });
 }
 
 exports.postLogin = async (req, res) => {
@@ -23,35 +22,26 @@ exports.postLogin = async (req, res) => {
 
   try {
     var userInfo = await db.authUser(req.body.auth);
-    console.log(userInfo)
     if (userInfo.length === 0) {
-      console.log("invalid");
-      res.render('login');
+      res.render('login', { auth: req.session.userInfo });
     }
     else {
-      console.log(userInfo);
       const { userID, username } = userInfo[0];
-      console.log(userID);
-      console.log(username);
       const sessobj = { userID, username };
-      console.log(sessobj);
       req.session.userInfo = sessobj;
       res.redirect(`/user/${userID}`)
     }
-
   }
   catch(e) {
-    console.log("in catch");
-    console.log(e);
+    res.render('login', { auth: req.session.userInfo });
   }
 }
 
 exports.getSet = (req, res) => {
-  console.log(req);
   let { number } = req.params;
   db.getCardAll(number)
   .then(resp => {
-    res.render('cardSet', { resp , number });
+    res.render('cardSet', { resp , number, auth: req.session.userInfo });
   }).catch(err => res.send(err));
 }
 
@@ -74,7 +64,9 @@ exports.deleteSet = async (req, res) => {
 exports.getUser = async (req, res) => {
   const sets = await db.getSetsFromUser( req.params.id );
   console.log(sets);
-  res.render('setsByUser', { sets });
+  console.log(session);
+  console.log(session.userInfo)
+  res.render('setsByUser', { sets, auth: req.session.userInfo });
 }
 
 exports.deleteFullSet = async (req, res) => {

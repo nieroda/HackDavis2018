@@ -31,8 +31,13 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Sign Up</a></li>
-          <li><a href='#'>Login</a></li>
+          <% if (!auth) { %>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href='/login'>Login</a></li>
+          <% } else { %>
+            <li><a href='/user/<%=auth.userID%>'>Hello <%= auth.username %></a></li>
+          <% } %>
+
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
